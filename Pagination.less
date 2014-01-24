@@ -1,0 +1,63 @@
+﻿ 
+@background-color: #444444;
+@text-color: white;
+
+.round-corners (@radius) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    -ms-border-radius: @radius;
+    -o-border-radius: @radius;
+    border-radius: @radius;
+}
+.pagination-container{
+    height: 29px;
+    width: 820px;
+    margin-top: 10px;
+    margin-bottom:10px;
+    clear:both;
+}
+.pagination-container a {
+    height: 16px;
+    min-width: 24px;
+    margin-right: 10px;
+    padding: 3px;
+    display: inline-block;
+    .round-corners(3px);
+    background-color: @background-color;
+    color: @text-color;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    &:hover
+    {
+        background-color: @text-color;
+        color:@background-color;
+    }
+}
+.pagination-container a.pagination-current {
+    background-color: @text-color;
+    color:@background-color;
+}
+.pagination-info{
+    padding-top:2px;
+    float:left;
+    font-size:16px;
+    font-weight:bold;
+}
+.pagination-ellipses {
+    width:24px;
+    margin-right:10px;
+    display: inline-block;
+    font-weight:bold;
+    text-decoration:none;
+    text-align:center;
+}
+
+.pagination-container a.pagination-first {
+    width:45px;
+}
+.pagination-container a.pagination-last {
+    width:65px;
+}
