@@ -4,11 +4,10 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
-namespace PaginationService
+namespace Pagination
 {
     public static class PaginationHtmlHelper
     {
-
         private const int PAGES_DISPLAYED = 9;
         private const string PAGE_URL_PARAMATER = "Page";
 
@@ -17,7 +16,6 @@ namespace PaginationService
         private const string CSS_ELLIPSES = "pagination-ellipses";
         private const string CSS_FIRST = "pagination-first";
         private const string CSS_LAST = "pagination-last";
-
 
         /// <summary>
         /// Creates a div with links for pagination.</summary>
@@ -42,7 +40,7 @@ namespace PaginationService
         public static MvcHtmlString PaginationHelper(this HtmlHelper helper, int currentPage, int totalPageCount, int pagesDisplayed, string pageUrlParamater)
         {
 
-            if (totalPageCount == 1) return new MvcHtmlString(""); 
+            if (totalPageCount == 1) return new MvcHtmlString("");
             if (pagesDisplayed < 3) pagesDisplayed = 3; //Validate to make sure pagesDisplayed is greater than 3
             string url = createURL(helper.ViewContext.HttpContext.Request.Url, pageUrlParamater);
 
@@ -52,7 +50,7 @@ namespace PaginationService
             builder.Append("<div class='" + CSS_CONTAINER + "'>");
 
             //Create first link
-            builder.Append("<a href='" + url + "1' class='" + CSS_FIRST + " " + (currentPage == 1 ? CSS_CURRENT : "") + "' >First</a>"); 
+            builder.Append("<a href='" + url + "1' class='" + (currentPage == 1 ? CSS_CURRENT : "") + " " + CSS_FIRST + "' >First</a>");
 
             //Starting and stopping values for the middle section of links
             int startMiddle = (currentPage > (pagesDisplayed + 1) ? (currentPage - pagesDisplayed) : 2);
@@ -60,19 +58,19 @@ namespace PaginationService
             //System.Diagnostics.Debug.WriteLine("--startMiddle " + startMiddle + " stopMiddle " + stopMiddle );
 
             //Ellipeses
-            if ((startMiddle > 2) && (totalPageCount > 2)) builder.Append("<a class='" + CSS_ELLIPSES + "'> ... </a>"); 
+            if ((startMiddle > 2) && (totalPageCount > 2)) builder.Append("<div class='" + CSS_ELLIPSES + "'> ... </div>");
 
             //Build middle links
-            for (int i = startMiddle; i < stopMiddle+1; i++)
+            for (int i = startMiddle; i < stopMiddle + 1; i++)
             {
                 builder.Append("<a class='" + (currentPage == i ? CSS_CURRENT : "") + "' href=" + url + i + ">" + i + "</a>");
             }
 
             //Ellipeses
-            if ((stopMiddle != (totalPageCount - 1)) && (totalPageCount > 2)) builder.Append("<div style='float:left;margin-left:10px;'><b> ... </b></div>");
+            if ((stopMiddle != (totalPageCount - 1)) && (totalPageCount > 2)) builder.Append("<div class='" + CSS_ELLIPSES + "'> ... </div>");
 
             //Create last link
-            builder.Append("<a href='" + url + totalPageCount + "' class='" + CSS_LAST + " " + (currentPage == totalPageCount ? CSS_CURRENT : "") + "' >Last</a>");
+            builder.Append("<a href='" + url + totalPageCount + "' class='" + (currentPage == totalPageCount ? CSS_CURRENT : "") + " " + CSS_LAST + "' >Last</a>");
 
             //Closing tag for containing div
             builder.Append("</div>");
@@ -83,6 +81,7 @@ namespace PaginationService
 
         //Uses the URI from the current page to create the URL used for the paging links;
         //The Page paramter is removed and then added back in empty, at the end of the string
+        //ie: http://www.lotrlcg.com/Card/Search?Terms=&Type=Ally&Page=
         //ie: http://localhost:55145/Ticket/TicketList?Owner=10955&Page=
         //The Page value is then added at each step in PaginationHelper method 
         private static string createURL(Uri urlObj, string pageUrlParamater)
@@ -94,7 +93,7 @@ namespace PaginationService
             //Get routing part of URI
             string urlBase = urlObj.ToString().Split('?')[0];
 
-            //Combing and return
+            //Combine and return
             return urlBase + "?" + nameValues.ToString() + "&" + pageUrlParamater + "=";
         }
 

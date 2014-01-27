@@ -1,27 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PaginationService
 {
 
-    public class PagedList<T>
-    {
-        public int itemsPerPage { get; set; }
-        public int pageCount { get; set; }
-        public int currentPage { get; set; }
-        public List<T> pagedList { get; set; }
-
-        public PagedList(int itemsPerPage, int pageCount, int currentPage, List<T> pagedList)
-        {
-            this.itemsPerPage = itemsPerPage;
-            this.pageCount = pageCount;
-            this.currentPage = currentPage;
-            this.pagedList = pagedList;
-        }
-    }
+    /*********************************************
+     * Sets up a genaric list for paging.
+     * 
+     ********************************************/
 
     public class PaginationService
     {
@@ -29,15 +15,19 @@ namespace PaginationService
 
         public int itemsPerPage { get; set; }
 
+        /// <summary>Default contstuctor that uses the constants for class variables.</summary>
         public PaginationService()
         {
             initialize(ITEMS_PER_PAGE);
         }
+
+        /// <summary>Contstuctor that allows you to set class variables.</summary>
         public PaginationService(int itemsPerPage)
         {
             initialize(itemsPerPage);
         }
 
+        /// <summary>Internal method for initalizing class variables.</summary>
         private void initialize(int itemsPerPage)
         {
             this.itemsPerPage = itemsPerPage;
@@ -55,6 +45,7 @@ namespace PaginationService
             return pageNumber;
         }
 
+        /// <summary>Creates a PagedList object with the paginated list.</summary>
         public PagedList<T> CreatePagedList<T>(List<T> itemList, int pageNumber)
         {
             if (pageNumber < 1) pageNumber = 1;
@@ -71,6 +62,28 @@ namespace PaginationService
             itemList = itemList.Skip(firstResult).Take(itemsPerPage).ToList();
 
             return new PagedList<T>(itemsPerPage, pageCount, pageNumber, itemList);
+        }
+    }
+
+    /*********************************************
+     * A container class for the paginated list that contains the 
+     * information that will be needed fpr the PaginationHtmlHelper in the view.
+     * 
+     ********************************************/
+
+    public class PagedList<T>
+    {
+        public int itemsPerPage { get; set; }
+        public int pageCount { get; set; }
+        public int currentPage { get; set; }
+        public List<T> pagedList { get; set; }
+
+        public PagedList(int itemsPerPage, int pageCount, int currentPage, List<T> pagedList)
+        {
+            this.itemsPerPage = itemsPerPage;
+            this.pageCount = pageCount;
+            this.currentPage = currentPage;
+            this.pagedList = pagedList;
         }
     }
 }
