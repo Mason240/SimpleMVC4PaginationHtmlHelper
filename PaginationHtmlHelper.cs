@@ -55,7 +55,6 @@ namespace Pagination
             //Starting and stopping values for the middle section of links
             int startMiddle = (currentPage > (pagesDisplayed + 1) ? (currentPage - pagesDisplayed) : 2);
             int stopMiddle = ((currentPage + pagesDisplayed) < totalPageCount ? (currentPage + pagesDisplayed) : (totalPageCount - 1));
-            //System.Diagnostics.Debug.WriteLine("--startMiddle " + startMiddle + " stopMiddle " + stopMiddle );
 
             //Ellipeses
             if ((startMiddle > 2) && (totalPageCount > 2)) builder.Append("<div class='" + CSS_ELLIPSES + "'> ... </div>");
@@ -82,7 +81,6 @@ namespace Pagination
         //Uses the URI from the current page to create the URL used for the paging links;
         //The Page paramter is removed and then added back in empty, at the end of the string
         //ie: http://www.lotrlcg.com/Card/Search?Terms=&Type=Ally&Page=
-        //ie: http://localhost:55145/Ticket/TicketList?Owner=10955&Page=
         //The Page value is then added at each step in PaginationHelper method 
         private static string createURL(Uri urlObj, string pageUrlParamater)
         {
