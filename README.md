@@ -9,22 +9,30 @@ There are two parts:
 
 PaginationService takes a generic list of items from the controller and creates a PagedList object with trimmed list. PagedList has all the information needed for the HtmlHelper in the view.
 (itemList is the full list of results to be paged, and model is the view model)
- 
-    PaginationService paginationService = new PaginationService();
 
-    //Parse the routing string for the page number
-    int pageNumber = paginationService.ParseUrlRoutingString(Page);
+```C#
+PaginationService paginationService = new PaginationService();
 
-    //Create pagedList and add it the viewmodel
-    model.pagedList = paginationService.CreatePagedList(itemList, pageNumber);
+//Parse the routing string for the page number
+int pageNumber = paginationService.ParseUrlRoutingString(Page);
+
+//Create pagedList and add it the viewmodel
+model.pagedList = paginationService.CreatePagedList(itemList, pageNumber);
+```
  
 * **View**:
  
 PaginationHtmlHelper creates a with the pagining component.
-    @Html.PaginationHelper(model.pagedList.currentPage, model.pagedList.pageCount)    
+
+```razor
+ @Html.PaginationHelper(model.pagedList.currentPage, model.pagedList.pageCount)    
+```
 
 Result:
 
 ![](https://raw2.github.com/Mason240/SimpleMVC4PaginationHtmlHelper/master/PagingScreenshot.PNG)
 
 A working example can be found at [LotrLcg.com](http://www.lotrlcg.com/Card/Search/?Type=Player&searchRadio=All&DisplayList=false&Page=7).
+
+
+
