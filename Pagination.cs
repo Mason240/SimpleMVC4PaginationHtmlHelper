@@ -53,7 +53,7 @@ namespace PaginationService
             int pageCount = (itemListCount / itemsPerPage) + 1;
 
             //List of items will fit onto one page, return itemList
-            if (itemListCount <= itemsPerPage) return new PagedList<T>(itemsPerPage, 1, 1, itemList);
+            if (itemListCount <= itemsPerPage) return new PagedList<T>(itemsPerPage, 1, 1, itemListCount, itemList);
 
             //Page number is higher than the number of possible pages, set pageNumber to the last page.
             if (pageNumber > pageCount) pageNumber = pageCount;
@@ -61,7 +61,7 @@ namespace PaginationService
             int firstResult = (pageNumber - 1) * itemsPerPage;
             itemList = itemList.Skip(firstResult).Take(itemsPerPage).ToList();
 
-            return new PagedList<T>(itemsPerPage, pageCount, pageNumber, itemList);
+            return new PagedList<T>(itemsPerPage, pageCount, pageNumber, itemListCount, itemList);
         }
     }
 
@@ -76,14 +76,17 @@ namespace PaginationService
         public int itemsPerPage { get; set; }
         public int pageCount { get; set; }
         public int currentPage { get; set; }
+        public int totalResults { get; set; }
         public List<T> pagedList { get; set; }
 
-        public PagedList(int itemsPerPage, int pageCount, int currentPage, List<T> pagedList)
+        public PagedList(int itemsPerPage, int pageCount, int currentPage, int totalResults, List<T> pagedList)
         {
             this.itemsPerPage = itemsPerPage;
             this.pageCount = pageCount;
             this.currentPage = currentPage;
             this.pagedList = pagedList;
+            this.totalResults = totalResults;
+
         }
     }
 }
