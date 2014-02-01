@@ -21,8 +21,9 @@ namespace Pagination
         /// <summary>
         /// Creates a div with links for pagination.</summary>
         /// <param name="helper"></param>
-        /// <param name="currentPage">The current page number.</param>
+        /// <param name="currentPageNumber">The current page number.</param>
         /// <param name="totalPageCount">The total number of pages.</param>
+        /// <param name="totalResults">The total number of resuts for the query.</param>
         /// <returns> div filled with links </returns>
         public static MvcHtmlString PaginationHelper(this HtmlHelper helper, int currentPageNumber, int totalPageCount, int totalResults)
         {
@@ -35,7 +36,7 @@ namespace Pagination
         /// <param name="helper"></param>
         /// <param name="currentPage">The current page number.</param>
         /// <param name="totalPageCount">The total number of pages.</param>
-        /// <param name="pagesDisplayed">The number of pages to be displayed in the middle section. Should be odd.</param>
+        /// <param name="pagesDisplayed">The number of pages to be displayed on either side of current page.</param>
         /// <param name="pageUrlParamater">The name of the URL paramater representing the page number. Typically 'Page'</param>
         /// <returns></returns>
         public static MvcHtmlString PaginationHelper(this HtmlHelper helper, int currentPage, int totalPageCount, int totalResults, int pagesDisplayed, string pageUrlParamater)
