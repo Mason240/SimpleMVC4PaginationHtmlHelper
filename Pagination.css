@@ -46,6 +46,11 @@
   text-decoration: none;
   text-align: center;
 }
+.pagination-results {
+  margin-right: 10px;
+  display: inline-block;
+  font-weight: bold;
+}
 .pagination-container a.pagination-first {
   width: 45px;
 }
