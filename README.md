@@ -25,7 +25,7 @@ model.pagedList = paginationService.CreatePagedList(itemList, pageNumber);
 PaginationHtmlHelper creates a with the pagining component.
 
 ```razor
- @Html.PaginationHelper(model.pagedList.currentPage, model.pagedList.pageCount)    
+ @Html.PaginationHelper(model.pagedList.currentPage, model.pagedList.pageCount, model.pagedList.totalResults)    
 ```
 
 Result:
