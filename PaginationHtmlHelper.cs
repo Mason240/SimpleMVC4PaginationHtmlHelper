@@ -16,16 +16,17 @@ namespace Pagination
         private const string CSS_ELLIPSES = "pagination-ellipses";
         private const string CSS_FIRST = "pagination-first";
         private const string CSS_LAST = "pagination-last";
-
+        private const string CSS_RESULTS = "pagination-results";
+        
         /// <summary>
         /// Creates a div with links for pagination.</summary>
         /// <param name="helper"></param>
         /// <param name="currentPage">The current page number.</param>
         /// <param name="totalPageCount">The total number of pages.</param>
         /// <returns> div filled with links </returns>
-        public static MvcHtmlString PaginationHelper(this HtmlHelper helper, int currentPageNumber, int totalPageCount)
+        public static MvcHtmlString PaginationHelper(this HtmlHelper helper, int currentPageNumber, int totalPageCount, int totalResults)
         {
-            return PaginationHelper(helper, currentPageNumber, totalPageCount, PAGES_DISPLAYED, PAGE_URL_PARAMATER);
+            return PaginationHelper(helper, currentPageNumber, totalPageCount, totalResults, PAGES_DISPLAYED, PAGE_URL_PARAMATER);
         }
 
         /// <summary>
@@ -37,7 +38,7 @@ namespace Pagination
         /// <param name="pagesDisplayed">The number of pages to be displayed in the middle section. Should be odd.</param>
         /// <param name="pageUrlParamater">The name of the URL paramater representing the page number. Typically 'Page'</param>
         /// <returns></returns>
-        public static MvcHtmlString PaginationHelper(this HtmlHelper helper, int currentPage, int totalPageCount, int pagesDisplayed, string pageUrlParamater)
+        public static MvcHtmlString PaginationHelper(this HtmlHelper helper, int currentPage, int totalPageCount, int totalResults, int pagesDisplayed, string pageUrlParamater)
         {
 
             if (totalPageCount == 1) return new MvcHtmlString("");
@@ -48,6 +49,9 @@ namespace Pagination
 
             //Open tag for containing div
             builder.Append("<div class='" + CSS_CONTAINER + "'>");
+
+            //Results div
+            builder.Append("<div class='" + CSS_RESULTS + "'>Search Returned " + totalResults + " Results.</div>");
 
             //Create first link
             builder.Append("<a href='" + url + "1' class='" + (currentPage == 1 ? CSS_CURRENT : "") + " " + CSS_FIRST + "' >First</a>");
