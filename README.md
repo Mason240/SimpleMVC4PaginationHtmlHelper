@@ -1,3 +1,5 @@
+UPDATE: I've since created a simpler version using Bootstrap that can be found at this gist: [PaginationHtmlHelper](https://gist.github.com/Mason240/523fcbb74263cf98fd8e)
+
 SimpleMVC4PaginationHtmlHelper
 ==============================
 
